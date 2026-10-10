@@ -1,0 +1,25 @@
+name: Sync with upstream
+
+on:
+  schedule:
+    - cron: '0 3 * * *'   # 毎日 3:00 UTC（日本時間 12:00）に実行
+  workflow_dispatch:      # 手動でも実行できるようにする
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Sync upstream
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        with:
+          upstream_repository: storytold/photocraft
+          upstream_branch: main
+          target_branch: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git_pull_args: --ff-only
