@@ -2,8 +2,11 @@ name: Sync with upstream
 
 on:
   schedule:
-    - cron: '0 3 * * *'   # 毎日 3:00 UTC（日本時間 12:00）に実行
-  workflow_dispatch:      # 手動でも実行できるようにする
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   sync:
@@ -18,8 +21,8 @@ jobs:
       - name: Sync upstream
         uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
         with:
-          upstream_repository: storytold/photocraft
-          upstream_branch: main
-          target_branch: main
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          git_pull_args: --ff-only
+          target_sync_branch: main
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+          upstream_sync_repo: storytold/photocraft
+          upstream_sync_branch: main
+          upstream_pull_args: --ff-only
