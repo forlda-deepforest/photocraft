@@ -25,4 +25,4 @@ jobs:
           target_repo_token: ${{ secrets.GITHUB_TOKEN }}
           upstream_sync_repo: storytold/photocraft
           upstream_sync_branch: main
-          upstream_pull_args: --ff-only
+          upstream_pull_args: --no-rebase
